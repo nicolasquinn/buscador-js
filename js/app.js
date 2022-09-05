@@ -1,9 +1,16 @@
 // Variables
 const resultado = document.querySelector('#resultado');
 
+const selectYear = document.querySelector('#year')
+const fechaActual = new Date().getFullYear(); // accedo al año actual
+const fechaMinima = fechaActual - 10; // el año minimo de los modelos que voy a vender
+
 // Eventos
 document.addEventListener('DOMContentLoaded', () => {
+    // Autos al cargar
     mostrarAutos();
+    // Llenar select de años al cargar
+    llenarSelectYears();
 })
 
 // Funciones
@@ -16,4 +23,14 @@ function mostrarAutos () {
         parrafo.textContent = `${marca} ${modelo} - ${year} - ${puertas} Puertas - Transmisión: ${transmision} - Precio: $${precio} - Color: ${color}`
         resultado.appendChild(parrafo);
     })
+}
+
+// Creo el HTML de los años
+function llenarSelectYears () {
+    for (let i = fechaActual; i >=  fechaMinima; i--) {
+        const year = document.createElement('OPTION');
+        year.textContent = i;
+        year.value = i;
+        selectYear.appendChild(year);
+    }
 }
