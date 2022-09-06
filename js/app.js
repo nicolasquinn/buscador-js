@@ -40,9 +40,11 @@ selectYear.addEventListener('change', e => {
 })
 selectMinimo.addEventListener('change', e => {
     datosBusqueda.minimo = e.target.value;
+    filtrarAuto();
 })
 selectMaximo.addEventListener('change', e => {
     datosBusqueda.maximo = e.target.value;
+    filtrarAuto();
 })
 selectPuertas.addEventListener('change', e => {
     datosBusqueda.puertas = e.target.value;
@@ -79,19 +81,19 @@ function llenarSelectYears () {
     }
 }
 
-// Función de filtrado en base a la búsqueda
-function filtrarAuto (e) {
-
-    const resultado = autos.filter(filtrarMarca).filter(filtrarYear)
-    //console.log(resultado)
-    mostrarAutos(resultado);
-
-}
-
 function limpiarHTML () {
     while (resultado.firstChild) {
         resultado.removeChild(resultado.firstChild);
     }
+}
+
+// Función de filtrado en base a la búsqueda
+function filtrarAuto (e) {
+
+    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo)
+    console.log(resultado)
+    mostrarAutos(resultado);
+
 }
 
 function filtrarMarca (elemento) {
@@ -105,6 +107,22 @@ function filtrarMarca (elemento) {
 function filtrarYear (elemento) {
     if (datosBusqueda.year) {
         return elemento.year === parseInt(datosBusqueda.year); 
+    } else {
+        return elemento; 
+    }
+}
+
+function filtrarMinimo (elemento) {
+    if (datosBusqueda.minimo) {
+        return elemento.precio >= parseInt(datosBusqueda.minimo); 
+    } else {
+        return elemento; 
+    }
+}
+
+function filtrarMaximo (elemento) {
+    if (datosBusqueda.maximo) {
+        return elemento.precio <= parseInt(datosBusqueda.maximo); 
     } else {
         return elemento; 
     }
