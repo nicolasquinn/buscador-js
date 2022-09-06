@@ -48,12 +48,15 @@ selectMaximo.addEventListener('change', e => {
 })
 selectPuertas.addEventListener('change', e => {
     datosBusqueda.puertas = e.target.value;
+    filtrarAuto();
 })
 selectTransmision.addEventListener('change', e => {
     datosBusqueda.transmision = e.target.value;
+    filtrarAuto();
 })
 selectColor.addEventListener('change', e => {
     datosBusqueda.color = e.target.value;
+    filtrarAuto();
 })
 
 
@@ -90,7 +93,7 @@ function limpiarHTML () {
 // Función de filtrado en base a la búsqueda
 function filtrarAuto (e) {
 
-    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo)
+    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo).filter(filtrarPuertas).filter(filtrarTransmision).filter(filtrarColor)
     console.log(resultado)
     mostrarAutos(resultado);
 
@@ -128,3 +131,26 @@ function filtrarMaximo (elemento) {
     }
 }
 
+function filtrarPuertas (elemento) {
+    if (datosBusqueda.puertas) {
+        return elemento.puertas === parseInt(datosBusqueda.puertas); 
+    } else {
+        return elemento; 
+    }
+}
+
+function filtrarTransmision (elemento) {
+    if (datosBusqueda.transmision) {
+        return elemento.transmision === datosBusqueda.transmision; 
+    } else {
+        return elemento; 
+    }
+}
+
+function filtrarColor (elemento) {
+    if (datosBusqueda.color) {
+        return elemento.color === datosBusqueda.color; 
+    } else {
+        return elemento; 
+    }
+}
