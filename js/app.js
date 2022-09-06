@@ -72,6 +72,14 @@ function mostrarAutos (arreglo) {
         parrafo.textContent = `${marca} ${modelo} - ${year} - ${puertas} Puertas - Transmisión: ${transmision} - Precio: $${precio} - Color: ${color}`
         resultado.appendChild(parrafo);
     })
+
+    if (arreglo.length === 0) {
+        const error = document.createElement('P');
+        error.textContent = "No hubo resultados, intenta con otros filtros de búsqueda.";
+        error.classList.add('alerta', 'error');
+        resultado.appendChild(error);
+    }
+
 }
 
 // Creo el HTML de los años
